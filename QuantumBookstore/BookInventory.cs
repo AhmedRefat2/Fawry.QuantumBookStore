@@ -1,4 +1,5 @@
 ﻿using QuantumBookstore.Entities;
+using QuantumBookstore.Errors;
 using QuantumBookstore.ServicesNotImplemented;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace QuantumBookstore
         public decimal BuyBook(string isbn, int quantity, string email, string address)
         {
             if (!books.TryGetValue(isbn, out Book? book))
-                throw new InvalidOperationException("Book not found.");
+                throw new BookNotFoundException(isbn);
 
             if (!book.IsForSale)
                 throw new InvalidOperationException("This book is not for sale.");
@@ -56,7 +57,7 @@ namespace QuantumBookstore
             if (book is PaperBook paper)
             {
                 if (paper.CurrentStock < quantity)
-                    throw new InvalidOperationException("Not enough stock.");
+                    throw new BookOutOfStockException(isbn);
 
                 paper.UpdateStock(paper.CurrentStock - quantity);
                 ShippingService.SendPaperbookWithShippingService(book, address, quantity, totalPrice);
