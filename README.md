@@ -68,4 +68,6 @@ It supports different types of books including physical, digital, and demo-only 
 ---
 
 ## 📦 Sample Output
+<img width="1251" height="776" alt="image" src="https://github.com/user-attachments/assets/f822e03a-b248-4afc-8d90-86ad33682d22" />
+
 
